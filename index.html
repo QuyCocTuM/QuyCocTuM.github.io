@@ -6,34 +6,55 @@
     <title>Blog của tôi</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* ====== Cấu hình chung ====== */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: white;
             color: black;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
         }
         body.dark-mode {
             background-color: #121212;
             color: white;
         }
-        button {
-            padding: 12px 24px;
-            border: none;
+
+        /* ====== Dark Mode Toggle ====== */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .toggle {
+            --size: 40px;
+            appearance: none;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
             background: linear-gradient(45deg, #6a11cb, #2575fc);
-            color: white;
+            box-shadow: inset calc(var(--size) * 0.3) calc(var(--size) * -0.3) 0 rgba(255, 255, 255, 0.5);
             cursor: pointer;
-            margin: 10px;
-            font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 8px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease-in-out;
         }
-        button:hover {
-            background: linear-gradient(45deg, #2575fc, #6a11cb);
+
+        .toggle:checked {
+            background: linear-gradient(45deg, #ffcc00, #ff6600);
+            transform: scale(0.8);
+            box-shadow: 
+                inset 0 0 0 var(--size),
+                -20px 0 0 -10px rgba(255, 255, 255, 0.8),
+                20px 0 0 -10px rgba(255, 255, 255, 0.8),
+                0 -20px 0 -10px rgba(255, 255, 255, 0.8),
+                0 20px 0 -10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* ====== Hiệu ứng hover & animation ====== */
+        .toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
         }
+        
+        /* Hiệu ứng khi click */
         @keyframes shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-3px); }
@@ -44,47 +65,60 @@
         .shake {
             animation: shake 0.3s ease-in-out;
         }
-        @keyframes rotateButton {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .rotate {
-            animation: rotateButton 0.5s ease-in-out;
-        }
-    </style>
-    <script>
-        async function loadReadme() {
-            const response = await fetch('README.md');
-            const text = await response.text();
-            document.getElementById('content').innerText = text;
-        }
-        window.onload = function() {
-            loadReadme();
-            if (localStorage.getItem("darkMode") === "true") {
-                document.body.classList.add("dark-mode");
-            }
-        };
-    </script>
-</head>
-<body>
-    <button onclick="toggleDarkMode()">🌓</button>
-    <h1>Chào mừng đến với blog của tôi!</h1>
-    <div id="content">Đang tải nội dung...</div>
 
+        /* Chữ tiêu đề */
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        /* Nội dung */
+        #content {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+    </style>
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
 
-            let button = document.querySelector("button");
-            button.classList.add("shake");
-            button.classList.add("rotate");
+            let toggleBtn = document.querySelector(".toggle");
+            toggleBtn.classList.add("shake");
 
             setTimeout(() => {
-                button.classList.remove("shake");
-                button.classList.remove("rotate");
+                toggleBtn.classList.remove("shake");
             }, 500);
         }
+
+        // Khi tải trang, kiểm tra chế độ dark mode
+        window.onload = function() {
+            const hours = new Date().getHours();
+            const isDayTime = hours > 7 && hours < 20;
+            const savedDarkMode = localStorage.getItem("darkMode") === "true";
+
+            if (!isDayTime || savedDarkMode) {
+                document.body.classList.add("dark-mode");
+                document.querySelector(".toggle").checked = true;
+            }
+
+            // Tải README.md
+            fetch('README.md')
+                .then(response => response.text())
+                .then(text => document.getElementById('content').innerText = text);
+        };
     </script>
+</head>
+<body>
+
+    <div class="toggle-container">
+        <input id="toggle" class="toggle" type="checkbox" onclick="toggleDarkMode()">
+    </div>
+
+    <h1>Chào mừng đến với blog của tôi!</h1>
+    <div id="content">Đang tải nội dung...</div>
+
 </body>
 </html>
