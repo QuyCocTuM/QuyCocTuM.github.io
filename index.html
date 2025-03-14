@@ -17,32 +17,39 @@
             color: white;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            background-color: gray;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
             color: white;
             cursor: pointer;
             margin: 10px;
             font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
             border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
         button:hover {
-            background-color: #555;
-            transform: scale(1.05);
-        }
-        button:active {
-            transform: scale(0.95);
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+            transform: scale(1.1);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
         }
         @keyframes shake {
             0% { transform: translateX(0); }
-            25% { transform: translateX(-2px); }
-            50% { transform: translateX(2px); }
-            75% { transform: translateX(-2px); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
             100% { transform: translateX(0); }
         }
         .shake {
             animation: shake 0.3s ease-in-out;
+        }
+        @keyframes rotateButton {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .rotate {
+            animation: rotateButton 0.5s ease-in-out;
         }
     </style>
     <script>
@@ -60,7 +67,7 @@
     </script>
 </head>
 <body>
-    <button onclick="toggleDarkMode()">🌓 Dark Mode</button>
+    <button onclick="toggleDarkMode()">🌓</button>
     <h1>Chào mừng đến với blog của tôi!</h1>
     <div id="content">Đang tải nội dung...</div>
 
@@ -71,10 +78,12 @@
 
             let button = document.querySelector("button");
             button.classList.add("shake");
+            button.classList.add("rotate");
 
             setTimeout(() => {
                 button.classList.remove("shake");
-            }, 300);
+                button.classList.remove("rotate");
+            }, 500);
         }
     </script>
 </body>
