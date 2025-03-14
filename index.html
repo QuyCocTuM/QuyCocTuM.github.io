@@ -76,13 +76,31 @@
             line-height: 1.6;
             white-space: pre-line;
         }
+        #content h1, #content h2, #content h3 {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        #content p {
+            margin-bottom: 10px;
+        }
+        #content ul, #content ol {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        #content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #content a:hover {
+            text-decoration: underline;
+        }
     </style>
     <script>
         async function loadReadme() {
             try {
                 const response = await fetch('README.md');
                 const text = await response.text();
-                document.getElementById('content').innerText = text;
+                document.getElementById('content').innerHTML = marked.parse(text);
             } catch (error) {
                 document.getElementById('content').innerText = 'Không thể tải nội dung';
             }
@@ -99,6 +117,7 @@
             localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <input id="toggle" class="toggle" type="checkbox" onclick="toggleDarkMode()">
