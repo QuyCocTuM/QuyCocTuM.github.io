@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog của tôi</title>
+     <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
     <script>
         async function loadReadme() {
             const response = await fetch('README.md');
@@ -14,6 +33,7 @@
     </script>
 </head>
 <body>
+    <button onclick="toggleDarkMode()">🌓 Dark Mode</button>
     <h1>Chào mừng đến với blog của tôi!</h1>
     <div id="content">Đang tải nội dung...</div>
 </body>
