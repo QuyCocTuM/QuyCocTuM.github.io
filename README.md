@@ -1,2 +1,2 @@
-# Quỷ Cốc Tử aka chàng trai Thanh Hóa 
-Đây là blog cá nhân của tôi trên GitHub Pages.
+# Quỷ Cốc Tử đẹp trai nhất
+Đây là blog cá nhân của Trần Đức Mạnh aka chàng trai thư sinh.
