@@ -24,33 +24,57 @@
             width: 100%;
         }
         .toggle {
+            --size: 2rem;
             appearance: none;
+            outline: none;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f0c040;
-            box-shadow: inset 10px -10px 0px rgba(0, 0, 0, 0.2);
-            transition: all 0.5s;
+            width: var(--size);
+            height: var(--size);
+            box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
+            border-radius: 999px;
+            color: hsl(240, 100%, 95%);
+            transition: all 500ms;
+            z-index: 1;
+            background: none;
             border: none;
-            margin-bottom: 10px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
         }
         .toggle:checked {
-            background: #222;
-            box-shadow: inset 10px -10px 0px rgba(255, 255, 255, 0.5);
+            --ray-size: calc(var(--size) * -0.4);
+            --offset-orthogonal: calc(var(--size) * 0.65);
+            --offset-diagonal: calc(var(--size) * 0.45);
+            transform: scale(0.75);
+            color: hsl(40, 100%, 50%);
+            box-shadow: 
+                inset 0 0 0 var(--size),
+                calc(var(--offset-orthogonal) * -1) 0 0 var(--ray-size),
+                var(--offset-orthogonal) 0 0 var(--ray-size),
+                0 calc(var(--offset-orthogonal) * -1) 0 var(--ray-size),
+                0 var(--offset-orthogonal) 0 var(--ray-size),
+                calc(var(--offset-diagonal) * -1) calc(var(--offset-diagonal) * -1) 0 var(--ray-size),
+                var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
+                calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
+                var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
         }
         .dark-mode {
             background-color: #222;
             color: white;
+            transition: background-color 0.5s, color 0.5s;
         }
         #content {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             text-align: left;
             max-width: 100%;
             overflow-wrap: break-word;
+            transition: background 0.5s;
+            font-size: 16px;
+            line-height: 1.6;
+            white-space: pre-line;
         }
     </style>
     <script>
@@ -77,8 +101,8 @@
     </script>
 </head>
 <body>
+    <input id="toggle" class="toggle" type="checkbox" onclick="toggleDarkMode()">
     <div class="container">
-        <input id="toggle" class="toggle" type="checkbox" onclick="toggleDarkMode()">
         <h1>Chào mừng đến với blog của tôi!</h1>
         <div id="content">Đang tải nội dung...</div>
     </div>
