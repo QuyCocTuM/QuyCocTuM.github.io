@@ -18,10 +18,12 @@
             min-height: 100vh;
             padding: 20px;
             text-align: center;
+            overflow-x: hidden;
         }
         .container {
-            max-width: 90%; /* Mở rộng tối đa gần bằng trang */
+            max-width: 90%;
             width: 100%;
+            margin: 0 auto;
         }
         .toggle {
             --size: 2rem;
@@ -65,7 +67,7 @@
         }
         #content {
             max-width: 100%;
-            width: 100%; /* Để phần nội dung trải rộng */
+            width: 100%;
             padding: 20px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
@@ -80,7 +82,16 @@
         .dark-mode #content {
             background: rgba(0, 0, 0, 0.8);
             color: white;
-            transform: scale(1.02); /* Nhẹ nhàng phóng to khi chuyển sang dark mode */
+            transform: scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+            #content {
+                padding: 15px;
+            }
         }
     </style>
     <script>
